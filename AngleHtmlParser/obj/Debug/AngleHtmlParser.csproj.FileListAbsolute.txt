@@ -9,3 +9,8 @@ D:\Документы\Visual Studio 2015\Projects\AngleHtmlParser\AngleHtmlParse
 D:\Документы\GitHub\AngleHtmlParser\AngleHtmlParser\bin\Debug\AngleHtmlParser.exe.config
 D:\Документы\GitHub\AngleHtmlParser\AngleHtmlParser\obj\Debug\AngleHtmlParser.exe
 D:\Документы\GitHub\AngleHtmlParser\AngleHtmlParser\obj\Debug\AngleHtmlParser.pdb
+D:\Документы\GitHub\AngleHtmlParser\AngleHtmlParser\bin\Debug\AngleHtmlParser.exe
+D:\Документы\GitHub\AngleHtmlParser\AngleHtmlParser\bin\Debug\AngleHtmlParser.pdb
+D:\Документы\GitHub\AngleHtmlParser\AngleHtmlParser\bin\Debug\AngleSharp.dll
+D:\Документы\GitHub\AngleHtmlParser\AngleHtmlParser\bin\Debug\AngleSharp.xml
+D:\Документы\GitHub\AngleHtmlParser\AngleHtmlParser\obj\Debug\AngleHtmlParser.csprojResolveAssemblyReference.cache

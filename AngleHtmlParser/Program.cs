@@ -37,12 +37,7 @@ namespace AngleHtmlParser
             do
             {
                 Console.WriteLine("Получено:" + baseURI + link.GetAttribute("href"));
-                //тута будем парсить
-                //
-                //
-                //    ПАРСИНГ
-                //
-                //
+
             
                 ParseOffersListPage(conn, client, parser, offersListPageHtmlDocument); //парсим предложения этой страницы
 
@@ -219,6 +214,29 @@ namespace AngleHtmlParser
             // Create a new parser front-end (can be re-used)
             parser = new HtmlParser();
             client.Headers.Add("user-agent", "Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.2; .NET CLR 1.0.3705;)");
+
+
+            //приступаем к авторизации.....  ОНА НЕ РАБОТАЕТ  =((
+            string URI = "https://www.gumtree.com.au/t-login.html";
+            string myParameters = "targetUrl=&likingAd=false&loginMail=clfdynic5oep@mail.ru&password:'megapass!'&rememberMe=true&_rememberMe=on";
+
+                client.Headers[HttpRequestHeader.ContentType] = "application/x-www-form-urlencoded";
+            byte[] response = client.UploadValues(URI, new System.Collections.Specialized.NameValueCollection()
+                     {
+                        { "targetUrl" , "" },
+                        { "likingAd" , "false" },
+                        {"loginMail" ,"clfdynic5oep@mail.ru"},
+                        {"password" , "megapass!"},
+                        { "rememberMe" , "true"},
+                        { "_rememberMe" , "on" }
+ 
+                     });
+            string result = System.Text.Encoding.UTF8.GetString(response);
+            System.IO.File.WriteAllText(@"htmllogin.html", result);
+            System.Diagnostics.Process.Start("chrome.exe", "htmllogin.html");
+            Console.ReadLine();
+            
+
         }
 
         private static string GetHTMLFromWeb(WebClient client, string offersPageLink)  //метод получает ссылки на текущей странице спредложениями
