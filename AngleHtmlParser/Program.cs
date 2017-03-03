@@ -43,7 +43,7 @@ namespace AngleHtmlParser
                 //    ПАРСИНГ
                 //
                 //
-                Console.WriteLine("Привет!");
+            
                 ParseOffersListPage(conn, client, parser, offersListPageHtmlDocument); //парсим предложения этой страницы
 
 
