@@ -36,14 +36,15 @@ namespace AngleHtmlParser
 
             string URI = "https://www.gumtree.com.au/t-login.html";
 
-            string request = POST(URI, myParameters);
+            // string request = POST(URI, myParameters);
 
-            System.IO.File.WriteAllText(@"request.html", request);
+            // System.IO.File.WriteAllText(@"request.html", request);
             //System.Diagnostics.Process.Start("result.html");
-            System.Diagnostics.Process.Start("chrome.exe", "request.html");
+            // System.Diagnostics.Process.Start("chrome.exe", "request.html");
 
             //конец отправки запроса авторизации
 
+            Auth(client);
             string offersListPageHtml = GetHTMLFromWeb(client, mainLink);  //получить HTML из ссылки на текущую страницу
 
             var offersListPageHtmlDocument = parser.Parse(offersListPageHtml);  //получаем DOM-документ одной страницы выдачи предложений
@@ -74,6 +75,26 @@ namespace AngleHtmlParser
 
         }
 
+        private static void Auth(WebClient client)
+        {
+            client.Headers.Add("User-Agent", "Mozilla/5.0 (Windows NT 6.3; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/56.0.2924.87 Safari/537.36");
+            client.Headers.Add("Accept-Encoding", "gzip, deflate, br");
+            client.Headers.Add("Accept-Language", "ru-RU,ru;q=0.8,en-US;q=0.6,en;q=0.4");
+            client.Headers.Add("Cookie", "machId=j5qIU26VcC8M2hxTLswQffZWYV4YrqlxEIOpNycazrNLBqwXa1AT_4t1PyVE1Llx6lFLuMb4CaVN5nvi0kTQOEbrjueQhO3sS-D87w; __gads=ID=23a02eacee056a99:T=1487676004:S=ALNI_MYYFbKwan2CCxnlMjL-6juEautSzA; bs=%7B%22st%22%3A%7B%7D%7D; up=%7B%22ln%22%3A%22691185324%22%2C%22ls%22%3A%22l%3D0%26c%3D18364%26r%3D0%26sv%3DLIST%26rentals.forrentby_s%3Downr%26sf%3Ddate%22%2C%22lsh%22%3A%22l%3D0%26c%3D18364%26r%3D0%26sv%3DLIST%26rentals.forrentby_s%3Downr%26sf%3Ddate%22%2C%22lbh%22%3A%22l%3D0%26c%3D18397%26r%3D0%26sv%3DLIST%26sf%3Ddate%7Cl%3D0%26c%3D18364%26r%3D0%26sv%3DLIST%26rentals.forrentby_s%3Downr%26sf%3Ddate%22%2C%22rva%22%3A%221138697382%2C1127508010%2C1127315705%2C1136736993%2C1140154194%2C1129303530%2C1131393943%2C1116520405%2C1138776675%2C1138378636%2C1137586974%2C1140733088%2C1119857408%2C1132693397%2C1131805193%22%7D; sc=jWv8pcTY9eAvWSyP3C6X; __utmt_siteTracker=1; _gat=1; wl=%7B%22l%22%3A%22%22%7D; __utma=160852194.1144746457.1487577940.1488547153.1488780594.28; __utmb=160852194.9.10.1488780594; __utmc=160852194; __utmz=160852194.1488446372.21.2.utmcsr=google|utmccn=(organic)|utmcmd=organic|utmctr=(not%20provided); _ga=GA1.3.1144746457.1487577940; ki_t=1487577951994%3B1488780598688%3B1488781641894%3B11%3B94; ki_r=; _gali=btn-submit-login");
+            client.Headers.Add("Host","www.gumtree.com.au");
+            client.Headers.Add("Upgrade-Insecure-Requests", "1");
+            client.Headers.Add("ContentType","application/x-www-form-urlencoded");
+            client.Headers.Add("Accept","text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8");
+            client.Headers.Add("Referer","https://www.gumtree.com.au/t-login-form.html?targetUrl=%2Ft-settings.html");
+            string myParameters = "targetUrl=%2Ft-settings.html&likingAd=false&loginMail=clfdynic5oep%40mail.ru&password=megapass%21&rememberMe=true&_rememberMe=on";
+            string URI = "https://www.gumtree.com.au/t-login.html";
+            client.BaseAddress = "https://www.gumtree.com.au";
+            string result = client.UploadString(URI, myParameters);
+            System.IO.File.WriteAllText(@"htmllogin.html", result);
+            System.Diagnostics.Process.Start("chrome.exe", "htmllogin.html");
+            Console.ReadLine();
+        }
+
         private static string POST(string Url, string Data)
         {
             //System.Net.WebRequest req = System.Net.WebRequest.Create(Url);
@@ -89,7 +110,6 @@ namespace AngleHtmlParser
             req.Headers.Add("Accept-Encoding", "gzip, deflate, br");
             req.Headers.Add("Accept-Language", "ru-RU,ru;q=0.8,en-US;q=0.6,en;q=0.4");
             req.Headers.Add("Cookie", "machId=j5qIU26VcC8M2hxTLswQffZWYV4YrqlxEIOpNycazrNLBqwXa1AT_4t1PyVE1Llx6lFLuMb4CaVN5nvi0kTQOEbrjueQhO3sS-D87w; __gads=ID=23a02eacee056a99:T=1487676004:S=ALNI_MYYFbKwan2CCxnlMjL-6juEautSzA; bs=%7B%22st%22%3A%7B%7D%7D; up=%7B%22ln%22%3A%22691185324%22%2C%22ls%22%3A%22l%3D0%26c%3D18364%26r%3D0%26sv%3DLIST%26rentals.forrentby_s%3Downr%26sf%3Ddate%22%2C%22lsh%22%3A%22l%3D0%26c%3D18364%26r%3D0%26sv%3DLIST%26rentals.forrentby_s%3Downr%26sf%3Ddate%22%2C%22lbh%22%3A%22l%3D0%26c%3D18397%26r%3D0%26sv%3DLIST%26sf%3Ddate%7Cl%3D0%26c%3D18364%26r%3D0%26sv%3DLIST%26rentals.forrentby_s%3Downr%26sf%3Ddate%22%2C%22rva%22%3A%221138697382%2C1127508010%2C1127315705%2C1136736993%2C1140154194%2C1129303530%2C1131393943%2C1116520405%2C1138776675%2C1138378636%2C1137586974%2C1140733088%2C1119857408%2C1132693397%2C1131805193%22%7D; sc=jWv8pcTY9eAvWSyP3C6X; __utmt_siteTracker=1; _gat=1; wl=%7B%22l%22%3A%22%22%7D; __utma=160852194.1144746457.1487577940.1488547153.1488780594.28; __utmb=160852194.9.10.1488780594; __utmc=160852194; __utmz=160852194.1488446372.21.2.utmcsr=google|utmccn=(organic)|utmcmd=organic|utmctr=(not%20provided); _ga=GA1.3.1144746457.1487577940; ki_t=1487577951994%3B1488780598688%3B1488781641894%3B11%3B94; ki_r=; _gali=btn-submit-login");
-            //req.Headers.Add("Host", "www.gumtree.com.au");
             req.Host = "www.gumtree.com.au";
             req.Headers.Add("Upgrade-Insecure-Requests", "1");
             req.AllowAutoRedirect = false;
@@ -274,7 +294,7 @@ namespace AngleHtmlParser
             client = new WebClient();
             // Create a new parser front-end (can be re-used)
             parser = new HtmlParser();
-            client.Headers.Add("user-agent", "Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.2; .NET CLR 1.0.3705;)");
+            
 
 
            // //приступаем к авторизации.....  ОНА НЕ РАБОТАЕТ  =((
